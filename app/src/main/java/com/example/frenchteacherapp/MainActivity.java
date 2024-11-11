@@ -2,6 +2,7 @@ package com.example.frenchteacherapp;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -10,7 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button blackButton, greenButton, redButton, yellowButton, purpleButton;
 
@@ -28,12 +29,33 @@ public class MainActivity extends AppCompatActivity {
             yellowButton = findViewById(R.id.buttonYellow);
             purpleButton = findViewById(R.id.buttonPurple);
 
-            redButton.setOnClickListener(v1 -> {
-                MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.red);
+            blackButton.setOnClickListener(this);
+            greenButton.setOnClickListener(this);
+            redButton.setOnClickListener(this);
+            yellowButton.setOnClickListener(this);
+            purpleButton.setOnClickListener(this);
 
-                mediaPlayer.start();
-            });
             return insets;
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.buttonBlack) {
+            playSounds(R.raw.black);
+        } else if (v.getId() == R.id.buttonGreen) {
+            playSounds(R.raw.green);
+        } else if (v.getId() == R.id.buttonRed) {
+            playSounds(R.raw.red);
+        } else if (v.getId() == R.id.buttonYellow) {
+            playSounds(R.raw.yellow);
+        } else if (v.getId() == R.id.buttonPurple) {
+            playSounds(R.raw.purple);
+        }
+    }
+
+    private void playSounds(int id) {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, id);
+        mediaPlayer.start();
     }
 }
